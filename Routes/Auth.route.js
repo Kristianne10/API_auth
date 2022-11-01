@@ -12,6 +12,7 @@ const router = express.Router();
 const createError = require('http-errors')
 const User = require('../Models/User.model')
 const {authSchema} = require('../helpers/Validation')
+const {signAccessToken} = require('../helpers/jwt')
 
 // define the routes
 
@@ -32,6 +33,9 @@ router.post('/register', async (req, res, next) => {
         // if email doesn't exist, add another user
         const user = new User(result)
         const savedUser = await user.save()
+
+        const accessToken = await signAccessToken(savedUser.id)
+        res.send({accessToken})
 
         res.send(savedUser)
     } catch (error){

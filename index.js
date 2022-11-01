@@ -6,6 +6,7 @@ npm install express
             nodemon
             mongoose
             bcrypt
+            jsonwebtoken
    SET PORT
    sET PORT=
 */
