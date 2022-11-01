@@ -27,7 +27,7 @@ router.post('/register', async (req, res, next) => {
 
         const emailExist = await User.findOne({email: result.email})
         if (emailExist) 
-            throw createError.Conflict(result.email + ' already exist')
+            throw createError.Conflict(result.email + ' already exists')
     
         // if email doesn't exist, add another user
         const user = new User(result)
