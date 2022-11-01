@@ -1,9 +1,10 @@
 /* MODULES
-npm install --save express 
-                   morgan   | morgan logs the request inside the console
-                   htt-errors
-                   dotenv 
-                   nodemon
+npm install express 
+            morgan   | morgan logs the request inside the console
+            htt-errors
+            dotenv 
+            nodemon
+            mongoose
    SET PORT
    sET PORT=
 
@@ -19,11 +20,13 @@ const AuthRoute = require('./Routes/Auth.route');
 
 // initialize the app
 const app = express();
+app.use(morgan('dev'))   // using  morgan module
 
 app.get('/', async (req, res, next) => {
     res.send("Hello");
 });
 
+// route | link
 app.use('/formanaAuth', AuthRoute);
 
 // all the routes that is not handle, will be handle by this code
