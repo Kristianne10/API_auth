@@ -5,9 +5,9 @@ npm install express
             dotenv 
             nodemon
             mongoose
+            bcrypt
    SET PORT
    sET PORT=
-
 */
 
 const express = require('express');
