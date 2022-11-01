@@ -42,6 +42,7 @@ router.post('/register', async (req, res, next) => {
         // if error is comming from Joi
         if (error.isJoi === true) error.status = 422    // 422 Unprocessable Entity
         next(error)
+
     }
 })
 
