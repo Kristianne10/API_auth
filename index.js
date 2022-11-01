@@ -14,6 +14,7 @@ const express = require('express');
 const morgan = require('morgan');
 const createError = require('http-errors');
 require('dotenv').config();
+require('./helpers/DB');
 
 // import Auth.route
 const AuthRoute = require('./Routes/Auth.route');
@@ -21,6 +22,10 @@ const AuthRoute = require('./Routes/Auth.route');
 // initialize the app
 const app = express();
 app.use(morgan('dev'))   // using  morgan module
+
+// parse the reques body
+app.use(express.json())
+app.use(express.urlencoded({extended: true}))
 
 app.get('/', async (req, res, next) => {
     res.send("Hello");
