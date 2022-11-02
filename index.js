@@ -16,21 +16,27 @@ const morgan = require('morgan');
 const createError = require('http-errors');
 require('dotenv').config();
 require('./helpers/DB');
+const { verifyAccessToken } = require('./helpers/jwt');
 
-// import Auth.route
 const AuthRoute = require('./Routes/Auth.route');
 
 // initialize the app
 const app = express();
 app.use(morgan('dev'))   // using  morgan module
 
-// parse the reques body
+// parse the request body
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
-app.get('/', async (req, res, next) => {
-    res.send("Hello");
-});
+
+
+// use verifyAcessToken as a middleware of Access Token
+// we provide the access token in the request header
+app.get('/', verifyAccessToken, async (req, res, next) => {
+    res.send("Hellooooooooo");
+})
+
+
 
 // route | link
 app.use('/formanaAuth', AuthRoute);

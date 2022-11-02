@@ -21,5 +21,24 @@ module.exports = {
                return resolve(token)  
             })
         })
+
     },
+        
+
+
+    // Middleware
+    verifyAccessToken: (req, res, next) => {
+        if (!req.headers['authorization']) return next(createError.Unauthorized())
+            const authHeader = req.headers['authorization']
+            const bearerToken = authHeader.split(' ')
+            const token = bearerToken[1]
+            JWT.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, payload) => {
+                if (err) {
+                    return next(createError.Unauthorized())
+                }
+                // if there's no error
+                req.payload = payload
+                next()
+            })
+        },
 }
