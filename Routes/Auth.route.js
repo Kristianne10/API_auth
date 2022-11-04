@@ -13,7 +13,7 @@ const createError = require('http-errors')
 const User = require('../Models/User.model')
 //const {authSchema, loginSchema} = require('../helpers/Validation');
 const {authSchema} = require('../helpers/Validation');
-const {signAccessToken} = require('../helpers/jwt')
+const {signAccessToken, signRefreshToken} = require('../helpers/jwt');
 
 // define the routes
 
@@ -36,7 +36,8 @@ router.post('/register', async (req, res, next) => {
         const savedUser = await user.save()
 
         const accessToken = await signAccessToken(savedUser.id)
-        res.send({accessToken})
+        const refreshToken = await signRefreshToken(savedUser.id)
+        res.send({accessToken, refreshToken})
 
         //res.send(savedUser)
     } catch (error){
@@ -58,7 +59,8 @@ router.post('/login', async (req, res, next) => {
         if (!isMatch) throw createError.Unauthorized('Please ensure that your credentials are valid.')
 
         const accessToken = await signAccessToken(user.id)
-        res.send({ accessToken })
+        const refreshToken = await signRefreshToken(user.id)
+        res.send({ accessToken, refreshToken})
         //res.send(result)
     } catch (error){
         if (error.isJoi === true) return next(createError.BadRequest("Login failed! Please ensure the credentials and password are valid."))
