@@ -2,8 +2,12 @@ const Joi = require('joi');
 
 // for register schema
 const authSchema = Joi.object({
+    name: Joi.string().required(),
     email: Joi.string().email().lowercase().required(),
-    password: Joi.string().min(8).required()
+    password: Joi.string().min(8).required(),
+    srcode: Joi.number().required(),
+    isAdmin: Joi.boolean().required()
+
 });
 
 // export Schema
@@ -11,22 +15,3 @@ const authSchema = Joi.object({
 module.exports = {
     authSchema
 }
-
-
-
-// const loginSchema = Joi.object({
-//     email: Joi.string().email().lowercase().required(),
-//     password: Joi.string().min(8).required(),
-// });
-
-
-// module.exports = {
-//     loginSchema
-// }
-
-
-// name: Joi.string().required(),
-// email: Joi.string().email().lowercase().required(),
-// password: Joi.string().min(8).required(),
-// srcode: Joi.number().required(),
-

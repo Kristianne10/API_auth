@@ -21,9 +21,7 @@ const {signAccessToken, signRefreshToken, verifyRefreshToken} = require('../help
 router.post('/register', async (req, res, next) => {
     //console.log(req.body)
     try {
-        //const {email,password}  = req.body
-        //if (!email || !password) throw createError.BadRequest()
-        
+
         // validating req.body using authSchema (Joi)
         const result = await authSchema.validateAsync(req.body)
 
@@ -50,20 +48,18 @@ router.post('/register', async (req, res, next) => {
 
 router.post('/login', async (req, res, next) => {
     try {
-        const result = await authSchema.validateAsync(req.body);
                 // find user inside users(Collection)
-        const user = await User.findOne({email: result.email})
-        if (!user) throw createError.NotFound("Your credentials did not match are record.")
+        const user = await User.findOne({email: req.body.email})
+        if (!user) throw createError.NotFound("Your credentials did not match our record.")
         
-        const isMatch = await user.isValidPassword(result.password)
-        if (!isMatch) throw createError.Unauthorized('Please ensure that your credentials are valid.')
+        const isMatch = await user.isValidPassword(req.body.password)
+         if (!isMatch) throw createError.Unauthorized('Please ensure that your credentials are valid.')
 
         const accessToken = await signAccessToken(user.id)
         const refreshToken = await signRefreshToken(user.id)
         res.send({ accessToken, refreshToken})
         //res.send(result)
     } catch (error){
-        if (error.isJoi === true) return next(createError.BadRequest("Login failed! Please ensure the credentials and password are valid."))
         next(error)
     }
 })

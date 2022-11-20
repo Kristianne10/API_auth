@@ -3,10 +3,10 @@ const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt')
 
 const UserSchema = new Schema({
-    // name: {
-    //     type: String,
-    //     required: true,
-    // },
+    name: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         required: true,
@@ -16,12 +16,20 @@ const UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    srcode: {
+        type: Number,
+        required: true
+    },
+    isAdmin: {
+        type: Boolean,
+        required: true
     }
-    // srcode: {
-    //     type: Number,
-    //     required: true
-    // }
 });
+
+
+
+
 
 
 // called after saving a user
@@ -49,4 +57,7 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 // to create user from UserSchema
 const User = mongoose.model('user', UserSchema);
+
+
+
 module.exports = User;

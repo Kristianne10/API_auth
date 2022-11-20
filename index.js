@@ -39,7 +39,7 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
 
 
 // route | link
-app.use('/formanaAuth', AuthRoute);
+app.use('/api/formanaAuth', AuthRoute);
 
 // all the routes that is not handle, will be handle by this code
 app.use(async(req, res, next) => {
