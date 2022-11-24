@@ -6,7 +6,8 @@ const authSchema = Joi.object({
     email: Joi.string().email().lowercase().required(),
     password: Joi.string().min(8).required(),
     srcode: Joi.number().required(),
-    isAdmin: Joi.boolean().required()
+    isAdmin: Joi.boolean().required(),
+    department: Joi.any()
 
 });
 

@@ -2,6 +2,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt')
 
+const ProgramSchema = new mongoose.Schema({
+    progName: String
+});
+
+const DepartmentSchema = new mongoose.Schema({
+    deptName: String,
+    program: ProgramSchema
+});
+
 const UserSchema = new Schema({
     name: {
         type: String,
@@ -24,9 +33,20 @@ const UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         required: true
+    },
+    department: DepartmentSchema,
+    
+    createdAt: {
+        type: Date,
+        immutablee: true,
+        default: () => Date.now()
+    },
+    updatedAt: {
+        type: Date,
+        default: () => Date.now()
     }
-});
 
+});
 
 
 
