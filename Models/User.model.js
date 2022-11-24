@@ -1,15 +1,22 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 const ProgramSchema = new mongoose.Schema({
-    progName: String
+    progName: String,
+    prog: mongoose.SchemaTypes.ObjectId,
+
 });
+const Program = mongoose.model('program', ProgramSchema);
+module.exports = Program;
 
 const DepartmentSchema = new mongoose.Schema({
     deptName: String,
+    dept: mongoose.SchemaTypes.ObjectId,
     program: ProgramSchema
 });
+const Department = mongoose.model('department', DepartmentSchema);
+module.exports = Department;
 
 const UserSchema = new Schema({
     name: {
@@ -34,8 +41,8 @@ const UserSchema = new Schema({
         type: Boolean,
         required: true
     },
-    department: DepartmentSchema,
-    
+    department:
+        DepartmentSchema,
     createdAt: {
         type: Date,
         immutablee: true,
@@ -77,7 +84,29 @@ UserSchema.methods.isValidPassword = async function (password) {
 
 // to create user from UserSchema
 const User = mongoose.model('user', UserSchema);
-
-
-
 module.exports = User;
+
+
+
+
+
+
+// try{
+//     Department.insertMany([
+//         {
+//             "deptName": "CICS",
+//             "program": {
+//                 "progName":  "Bachelor of Science in Computer Science (BSCS)"
+//             }  
+//         },
+//         {
+//             "deptName": "CICS",
+//             "program": {
+//                 "progName":  "Bachelor of Science in Information Technology (BS IT)"
+//             }
+//         }
+//     ])                                                                  
+
+// } catch (error){
+//     next(error);
+// }
