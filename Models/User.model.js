@@ -56,9 +56,6 @@ const UserSchema = new Schema({
 });
 
 
-
-
-
 // called after saving a user
 // use function and remove => to use .this
 UserSchema.pre('save', async function (next) {
@@ -89,24 +86,31 @@ module.exports = User;
 
 
 
+const Form_Schema = new  mongoose.Schema({
+    title: String,
+    description: String,
+    createdAt: {
+        type: Date,
+        immutablee: true,
+        default: () => Date.now()
+    }
+})
+const Form = mongoose.model('form', Form_Schema);
+module.exports = Form;
 
 
-// try{
-//     Department.insertMany([
-//         {
-//             "deptName": "CICS",
-//             "program": {
-//                 "progName":  "Bachelor of Science in Computer Science (BSCS)"
-//             }  
-//         },
-//         {
-//             "deptName": "CICS",
-//             "program": {
-//                 "progName":  "Bachelor of Science in Information Technology (BS IT)"
-//             }
-//         }
-//     ])                                                                  
+filledForms_Schema = new mongoose.Schema({
+    filledDate: {
+        type: Date,
+        immutablee: true,
+        default: () => Date.now()
+    },
+    formIDs: [{type:mongoose.Schema.ObjectId,ref: 'form'}]
+})
 
-// } catch (error){
-//     next(error);
-// }
+const CreatedForms_Schema = new mongoose.Schema({
+    formIDs: {type:mongoose.Schema.ObjectId,ref: 'form'}
+})
+const CreatedForm = mongoose.model('createdform', CreatedForms_Schema);
+module.exports = CreatedForm;
+
