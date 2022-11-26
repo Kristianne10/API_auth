@@ -1,20 +1,8 @@
-/*
-http://localhost:3000
-http://localhost:3000/formanaAuth/register
-http://localhost:3000/formanaAuth/login
-http://localhost:3000/formanaAuth/logout
-http://localhost:3000/formanaAuth/refresh-token
-*/
-
-
 const express = require('express');
 const router = express.Router();
-const createError = require('http-errors')
-const User = require('../Models/User.model')
-const Form = require('../Models/User.model')
-const CreatedForm = require('../Models/User.model')
+const createError = require('http-errors');
+const User = require('../Models/User.model');
 
-//const {authSchema, loginSchema} = require('../helpers/Validation');
 const {authSchema} = require('../helpers/Validation');
 const {signAccessToken, signRefreshToken, verifyRefreshToken} = require('../helpers/jwt');
 
@@ -83,31 +71,6 @@ router.post('/refresh-token', async (req, res, next) => {
 
 router.delete('/logout', async (req, res, next) => {
     res.send('logout route')
-})
-
-
-
-router.post('/forms', async (req, res, next) => {
-
-    var id = req.params.id;
-    var forms = new Form({
-        title: req.body.title, 
-        description: req.body.description,
-    })
-
-    forms.save().then((docs) => {
-        res.send(docs);
-        console.log(docs)
-    }).catch((e) => res.status(404).send(e)); 
-
-    CreatedForm.findById(id).then((docs) => {
-        if(!docs) {
-            res.status(404).send();
-        }
-        docs.formIDs.push(forms._id);
-    }).catch((e) => {
-        res.send(e).status(404);
-    })
 })
 
 

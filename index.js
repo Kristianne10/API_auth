@@ -9,6 +9,19 @@ npm install express
             jsonwebtoken
    SET PORT
    sET PORT=
+
+
+ROUTES
+
+http://localhost:3000
+http://localhost:3000/api/ifRouteDeoesntExist
+http://localhost:3000/api/formanaAuth/register
+http://localhost:3000/api/formanaAuth/login
+http://localhost:3000/api/formanaAuth/logout
+http://localhost:3000/api/formanaAuth/refresh-token
+http://localhost:3000/api/Form/forms
+http://localhost:3000/api/Formana-Department/Department
+
 */
 
 const express = require('express');
@@ -19,6 +32,9 @@ require('./helpers/DB');
 const { verifyAccessToken } = require('./helpers/jwt');
 
 const AuthRoute = require('./Routes/Auth.route');
+const FormRoute = require('./Routes/Form.route');
+const DeptRoute = require('./Routes/Dept.route');
+
 
 // initialize the app
 const app = express();
@@ -40,6 +56,11 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
 
 // route | link
 app.use('/api/formanaAuth', AuthRoute);
+app.use('/api/Form', FormRoute);
+app.use('/api/Formana-Department', DeptRoute);
+
+
+
 
 // all the routes that is not handle, will be handle by this code
 app.use(async(req, res, next) => {

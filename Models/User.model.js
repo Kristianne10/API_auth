@@ -2,21 +2,20 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
+
 const ProgramSchema = new mongoose.Schema({
     progName: String,
     prog: mongoose.SchemaTypes.ObjectId,
 
 });
-const Program = mongoose.model('program', ProgramSchema);
-module.exports = Program;
 
 const DepartmentSchema = new mongoose.Schema({
     deptName: String,
     dept: mongoose.SchemaTypes.ObjectId,
     program: ProgramSchema
 });
-const Department = mongoose.model('department', DepartmentSchema);
-module.exports = Department;
+// const Department = mongoose.model('department', DepartmentSchema);
+// module.exports = Department;
 
 const UserSchema = new Schema({
     name: {
@@ -78,39 +77,6 @@ UserSchema.methods.isValidPassword = async function (password) {
     }
 }
 
-
 // to create user from UserSchema
 const User = mongoose.model('user', UserSchema);
 module.exports = User;
-
-
-
-
-const Form_Schema = new  mongoose.Schema({
-    title: String,
-    description: String,
-    createdAt: {
-        type: Date,
-        immutablee: true,
-        default: () => Date.now()
-    }
-})
-const Form = mongoose.model('form', Form_Schema);
-module.exports = Form;
-
-
-filledForms_Schema = new mongoose.Schema({
-    filledDate: {
-        type: Date,
-        immutablee: true,
-        default: () => Date.now()
-    },
-    formIDs: [{type:mongoose.Schema.ObjectId,ref: 'form'}]
-})
-
-const CreatedForms_Schema = new mongoose.Schema({
-    formIDs: {type:mongoose.Schema.ObjectId,ref: 'form'}
-})
-const CreatedForm = mongoose.model('createdform', CreatedForms_Schema);
-module.exports = CreatedForm;
-
