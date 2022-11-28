@@ -6,11 +6,23 @@ const Form = require('../Models/Form.model')
 router.post('/forms', async (req, res, next) => {
 
     try {
-        const forms = new Form(req.body);
+        const forms = new Form(req.body)
         const result = await forms.save();
         console.log(result);
         res.send(result);
 
+    } catch (error){
+        next(error);
+    }
+
+})
+
+// get all the list of forms
+router.get('/ListOfForms', async (req, res, next) => {
+
+    try {
+        const FormList = await Form.find({}).populate()
+        res.send(FormList)
     } catch (error){
         next(error);
     }
