@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.set("autoCreate", false);
 
 const AnswerSchema = new Schema({
     questions: [
@@ -9,7 +10,7 @@ const AnswerSchema = new Schema({
             {
             comment: "",
             }
-        ]
+        ] 
         }
     ]
 });

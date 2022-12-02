@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+mongoose.set("autoCreate", false);
+
 
 const DataSchema = new Schema({
-    autoCreate: false,
     title: {
         type: String,
         required: true,
@@ -18,6 +19,7 @@ const DataSchema = new Schema({
         }
     ]
 });
+
 
 const Data = mongoose.model('data', DataSchema);
 module.exports = Data;
