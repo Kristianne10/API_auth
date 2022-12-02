@@ -34,6 +34,7 @@ const { verifyAccessToken } = require('./helpers/jwt');
 const AuthRoute = require('./Routes/Auth.route');
 const FormRoute = require('./Routes/Form.route');
 const DeptRoute = require('./Routes/Dept.route');
+const FilledRoute = require('./Routes/Filled_Form.route');
 
 
 // initialize the app
@@ -58,6 +59,7 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
 app.use('/api/formanaAuth', AuthRoute);
 app.use('/api/Form', FormRoute);
 app.use('/api/Formana-Department', DeptRoute);
+app.use('/api/FilledForm', FilledRoute);
 
 
 
