@@ -16,7 +16,7 @@ router.post('/register', async (req, res, next) => {
         // validating req.body using authSchema (Joi)
         const result = await authSchema.validateAsync(req.body)
 
-        const emailExist = await User.findOne({email: result.email})
+        const emailExist = await User.findOne({email: result.email}).exec();
         if (emailExist) 
             throw createError.Conflict(result.email + ' already exists')
     
@@ -40,7 +40,7 @@ router.post('/register', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     try {
                 // find user inside users(Collection)
-        const user = await User.findOne({email: req.body.email})
+        const user = await User.findOne({email: req.body.email}).exec();
         if (!user) throw createError.NotFound("Your credentials did not match our record.")
         
         const isMatch = await user.isValidPassword(req.body.password)
