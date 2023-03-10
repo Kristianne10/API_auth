@@ -20,7 +20,11 @@ http://localhost:3000/api/formanaAuth/login
 http://localhost:3000/api/formanaAuth/logout
 http://localhost:3000/api/formanaAuth/refresh-token
 http://localhost:3000/api/Form/forms
+http://localhost:3000/api/Form/ListOfForms
+http://localhost:3000/api/FilledForm/filledForm
 http://localhost:3000/api/Formana-Department/Department
+http://localhost:3000/api/Form/input
+http://localhost:3000/api/Form/answer
 
 */
 
