@@ -27,6 +27,7 @@ http://localhost:3000/api/Form/input
 http://localhost:3000/api/Form/answer
 
 */
+const cors = require("cors");
 
 const express = require('express');
 const morgan = require('morgan');
@@ -39,6 +40,9 @@ const AuthRoute = require('./Routes/Auth.route');
 const FormRoute = require('./Routes/Form.route');
 const DeptRoute = require('./Routes/Dept.route');
 const FilledRoute = require('./Routes/Filled_Form.route');
+
+// OTP
+const OTPRoutes = require("./OTP/OTP.route");
 
 
 // initialize the app
@@ -57,13 +61,16 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
     res.send("Hellooooooooo");
 })
 
-
+app.use(cors());
 
 // route | link
 app.use('/api/formanaAuth', AuthRoute);
 app.use('/api/Form', FormRoute);
 app.use('/api/Formana-Department', DeptRoute);
 app.use('/api/FilledForm', FilledRoute);
+
+// otp route
+app.use("/api/otp", OTPRoutes);
 
 
 
