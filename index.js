@@ -81,7 +81,6 @@ app.use("/api/email_verification", EmailVerificationRoutes);
 
 
 
-
 // all the routes that is not handle, will be handle by this code
 app.use(async(req, res, next) => {
     next(createError.NotFound('route does not exist'))    
