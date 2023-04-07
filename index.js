@@ -44,6 +44,9 @@ const FilledRoute = require('./Routes/Filled_Form.route');
 // OTP
 const OTPRoutes = require("./OTP/OTP.route");
 
+// email
+const EmailVerificationRoutes = require("./OTP/Email.verification/email.route");
+
 
 // initialize the app
 const app = express();
@@ -63,14 +66,18 @@ app.get('/', verifyAccessToken, async (req, res, next) => {
 
 app.use(cors());
 
-// route | link
+// user authentication
 app.use('/api/formanaAuth', AuthRoute);
+
+// forms
 app.use('/api/Form', FormRoute);
 app.use('/api/Formana-Department', DeptRoute);
 app.use('/api/FilledForm', FilledRoute);
 
 // otp route
 app.use("/api/otp", OTPRoutes);
+// email verification process using the otp system
+app.use("/api/email_verification", EmailVerificationRoutes);
 
 
 
