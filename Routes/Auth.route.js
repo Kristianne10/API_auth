@@ -6,6 +6,7 @@ const User = require('../Models/User.model');
 const {authSchema} = require('../helpers/Validation');
 const {signAccessToken, signRefreshToken, verifyRefreshToken} = require('../helpers/jwt');
 
+
 // define the routes
 
 // REGISTER USERS
@@ -17,15 +18,17 @@ router.post('/register', async (req, res, next) => {
         const result = await authSchema.validateAsync(req.body)
 
         const emailExist = await User.findOne({email: result.email}).exec();
-        if (emailExist) 
+        if (emailExist) {
             throw createError.Conflict(result.email + ' already exists')
-    
+        }
+
         // if email doesn't exist, add another user
         const user = new User(result)
         const savedUser = await user.save()
 
         const accessToken = await signAccessToken(savedUser.id)
         const refreshToken = await signRefreshToken(savedUser.id)
+
         res.send({accessToken, refreshToken})
 
         //res.send(savedUser)
@@ -44,11 +47,18 @@ router.post('/login', async (req, res, next) => {
         if (!user) throw createError.NotFound("Your credentials did not match our record.")
         
         const isMatch = await user.isValidPassword(req.body.password)
-         if (!isMatch) throw createError.Unauthorized('Please ensure that your credentials are valid.')
+        if (!isMatch) throw createError.Unauthorized('Please ensure that your credentials are valid.')
 
+        // to see if the user has already verified the otp code.
+        // unable to log in without verifying the OTP code. 
+        const fetchedUser = await User.findOne({"verified": true});
+        if (!fetchedUser){
+            throw createError("Email hasn't been verified yet. Check your email.");
+        }
         const accessToken = await signAccessToken(user.id)
         const refreshToken = await signRefreshToken(user.id)
         res.send({ accessToken, refreshToken})
+        
         //res.send(result)
     } catch (error){
         next(error)

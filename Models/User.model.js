@@ -50,7 +50,9 @@ const UserSchema = new Schema({
     updatedAt: {
         type: Date,
         default: () => Date.now()
-    }
+    },
+    verified : {type: Boolean, default:false}
+
 
 });
 
