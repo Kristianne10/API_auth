@@ -51,10 +51,11 @@ router.post('/login', async (req, res, next) => {
 
         // to see if the user has already verified the otp code.
         // unable to log in without verifying the OTP code. 
-        const fetchedUser = await User.findOne({"verified": true});
-        if (!fetchedUser){
-            throw createError("Email hasn't been verified yet. Check your email.");
+        
+        if (!user.verified){
+            throw createError("Email hasn't been verified yet. Check your email."); 
         }
+
         const accessToken = await signAccessToken(user.id)
         const refreshToken = await signRefreshToken(user.id)
         res.send({ accessToken, refreshToken})
