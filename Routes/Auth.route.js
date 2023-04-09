@@ -5,7 +5,7 @@ const User = require('../Models/User.model');
 
 const {authSchema} = require('../helpers/Validation');
 const {signAccessToken, signRefreshToken, verifyRefreshToken} = require('../helpers/jwt');
-
+const {sendVerificationOTPEmail} = require("./../OTP/Email.verification/email.controller");
 
 // define the routes
 
@@ -53,8 +53,9 @@ router.post('/login', async (req, res, next) => {
         // unable to log in without verifying the OTP code. 
         
         if (!user.verified){
-            throw createError("Email hasn't been verified yet. Check your email."); 
-        }
+            await sendVerificationOTPEmail(user.email);
+            throw createError("Email hasn't been verified yet. Check your email.");      
+        }   
 
         const accessToken = await signAccessToken(user.id)
         const refreshToken = await signRefreshToken(user.id)
