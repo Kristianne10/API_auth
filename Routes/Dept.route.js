@@ -5,8 +5,6 @@ require('dotenv').config();
 const Department = require('../Models/Department.model');
 const Program = require('../Models/Department.model');
 
-
-
 router.post('/department', async (req, res, next) => {
     try {
 

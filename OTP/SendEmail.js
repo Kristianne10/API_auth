@@ -1,7 +1,5 @@
 const nodemailer = require("nodemailer");
 
-
-
 const { AUTH_EMAIL, AUTH_PASS} = process.env;
 let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
@@ -31,7 +29,6 @@ const sendEmail = async (mailOptions) => {
         await transporter.sendMail(mailOptions);
         return;
     } catch (error) {
-        console.log("try ulit");
         throw(error);
     }
 };

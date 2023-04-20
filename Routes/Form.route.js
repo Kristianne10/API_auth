@@ -32,8 +32,6 @@ router.get('/ListOfForms', async (req, res, next) => {
 });
 
 
-
-
 router.post('/input', async (req, res, next) => {
     try {
         const data = new Data(req.body)

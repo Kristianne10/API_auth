@@ -7,7 +7,6 @@ const {authSchema} = require('../helpers/Validation');
 const {signAccessToken, signRefreshToken, verifyRefreshToken} = require('../helpers/jwt');
 const {sendVerificationOTPEmail} = require("./../OTP/Email.verification/email.controller");
 
-// define the routes
 
 // REGISTER USERS
 router.post('/register', async (req, res, next) => {
